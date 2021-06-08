@@ -1,0 +1,67 @@
+<template>
+    <div class="loginColumns animated fadeInDown">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="font-bold">Welcome to Samacom system </h2>
+
+                <p>
+                    Samacom trực thuộc Công ty Cổ phần đào tạo Nguồn nhân lực HRP Việt Nam, đơn vị tiên phong cung ứng và đào tạo nhân viên kinh doanh máu lửa, nhiệt huyết, có thái độ tốt và kỹ năng chuyên môn bài bản cho các doanh nghiệp, tổ chức tại Việt Nam.
+                </p>
+
+                <p>
+                    Sứ mệnh: Là đơn vị kết nối nhân sự về Sales với chất lượng và sự phù hợp tốt nhất cho các doanh nghiệp Việt Nam, nâng tầm sự phát triển của các doanh nghiệp Việt vươn tầm thế giới.
+                </p>
+
+            </div>
+            <div class="col-md-6">
+                <div class="ibox-content">
+                    <form class="m-t" role="form" action="" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="email" placeholder="Email hoặc số điện thoại">
+                            <p class="text-danger pull-right">
+                            </p>
+                            <p class="text-danger pull-right">
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" value="" name="password" placeholder="Password">
+                            <p class="text-danger pull-right">
+                            </p>
+                            <p class="text-danger pull-right">
+                            </p>
+                        </div>
+                        <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+                    </form>
+                    <p class="m-t">
+                        <small>Thông tin liên lạc liên hệ SAMACOM TEAM</small>
+                        <br/>
+                        <small class="text-danger">Phone: 0868888336</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-6">
+                Copyright SAF Company
+                <a href="https://samacom.com.vn">
+                    <small class="text-info"> Samacom</small>
+                </a>
+            </div>
+            <div class="col-md-6 text-right">
+                <small>© 2019-2020</small>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "login"
+    }
+</script>
+
+<style scoped>
+
+</style>
