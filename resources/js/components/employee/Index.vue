@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import create from "./create";
+    import create from "./Create";
     export default {
         name: "index"
     }

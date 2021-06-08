@@ -283,9 +283,9 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="">
+                        <router-link to="/logout">
                             <i class="fa fa-sign-out"></i> Log out
-                        </a>
+                        </router-link>
                     </li>
                 </ul>
             </nav>

@@ -15,16 +15,16 @@
             </div>
             <div class="col-md-6">
                 <div class="ibox-content">
-                    <form class="m-t" role="form" action="" method="post">
+                    <form class="m-t" role="form" @submit.prevent="login">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="email" placeholder="Email hoặc số điện thoại">
+                            <input type="text" class="form-control" name="email" v-model="form.email" placeholder="Email hoặc số điện thoại">
                             <p class="text-danger pull-right">
                             </p>
                             <p class="text-danger pull-right">
                             </p>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" value="" name="password" placeholder="Password">
+                            <input type="password" class="form-control" value="" name="password" v-model="form.password" placeholder="Password">
                             <p class="text-danger pull-right">
                             </p>
                             <p class="text-danger pull-right">
@@ -58,7 +58,24 @@
 
 <script>
     export default {
-        name: "login"
+        name: "login",
+        data(){
+            return {
+                form: {
+                    email: null,
+                    password: null
+                },
+                errors: {}
+            }
+        },
+        methods: {
+            login(){
+                axios.post('/api/auth/login', this.form)
+                    .then(res => {
+                        this.$router.push({name: 'home'})
+                    })
+            }
+        }
     }
 </script>
 
