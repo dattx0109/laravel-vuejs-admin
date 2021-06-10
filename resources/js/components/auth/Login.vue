@@ -72,7 +72,8 @@
             login(){
                 axios.post('/api/auth/login', this.form)
                     .then(res => {
-                        this.$router.push({name: 'home'})
+                        localStorage.setItem('token', res.data.access_token);
+                        this.$router.push({name: 'home'});
                     })
             }
         }

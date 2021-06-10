@@ -1919,6 +1919,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post('/api/auth/login', this.form).then(function (res) {
+        localStorage.setItem('token', res.data.access_token);
+
         _this.$router.push({
           name: 'home'
         });
@@ -6790,7 +6792,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nh1[data-v-6b542ec8]{\n    color: red;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nh1[data-v-6b542ec8]{\r\n    color: red;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38613,7 +38615,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    this is home page\n")])
+  return _c("div", [_vm._v("\r\n    this is home page\r\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
