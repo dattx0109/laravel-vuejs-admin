@@ -16,7 +16,7 @@ window.User = User;
 
 // Sweet Alert Start
 import Swal from 'sweetalert2'
-window.Swal = Swal
+window.Swal = Swal;
 
 const Toast = Swal.mixin({
     toast: true,
@@ -25,7 +25,7 @@ const Toast = Swal.mixin({
     timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseenter', Swal.stopTimer);
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 });

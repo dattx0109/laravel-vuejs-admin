@@ -25,7 +25,7 @@
                             <p v-if="errors.password" class="text-danger pull-right">{{ errors.password[0] }}</p>
                         </div>
                         <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
-
+                        <button class="btn btn-sm btn-white" type="button"><router-link to="/register">Đăng ký</router-link></button>
                     </form>
                     <p class="m-t">
                         <small>Thông tin liên lạc liên hệ SAMACOM TEAM</small>

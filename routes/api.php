@@ -26,10 +26,10 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    Route::post('register', [AuthController::class, 'register']);
 
 });
 
 
-Route::group(['middleware' => 'JWT'], function (){
-    Route::get('/');
-});
+//Route::group(['middleware' => 'JWT'], function (){
+//});

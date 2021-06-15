@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
@@ -14,7 +15,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -82,5 +83,14 @@ class AuthController extends Controller
             'user_id' => auth()->user()->id,
             'email' => auth()->user()->email,
         ]);
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        dd($request->all());
+        $data = [
+            'name' => $request['name']
+
+        ];
     }
 }
