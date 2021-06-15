@@ -291,8 +291,8 @@
             </nav>
         </div>
         <div class="row  border-bottom dashboard-header">
-            <router-view></router-view>
         </div>
+        <router-view></router-view>
 
     </div>
 </div>

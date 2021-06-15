@@ -3,7 +3,7 @@ import AppStorage from './AppStorage';
 
 class User {
     responseAfterLogin(res){
-        const access_token = res.data.token;
+        const access_token = res.data.access_token;
         const user_name = res.data.name;
         if (Token.isValid(access_token)){
             AppStorage.store(access_token, user_name);

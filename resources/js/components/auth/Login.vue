@@ -18,17 +18,11 @@
                     <form class="m-t" role="form" @submit.prevent="login">
                         <div class="form-group">
                             <input type="text" class="form-control" name="email" v-model="form.email" placeholder="Email hoặc số điện thoại">
-                            <p class="text-danger pull-right">
-                            </p>
-                            <p class="text-danger pull-right">
-                            </p>
+                            <p v-if="errors.email" class="text-danger pull-right">{{ errors.email[0] }}</p>
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" value="" name="password" v-model="form.password" placeholder="Password">
-                            <p class="text-danger pull-right">
-                            </p>
-                            <p class="text-danger pull-right">
-                            </p>
+                            <p v-if="errors.password" class="text-danger pull-right">{{ errors.password[0] }}</p>
                         </div>
                         <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
@@ -59,6 +53,11 @@
 <script>
     export default {
         name: "login",
+        created(){
+          if (User.loggedIn()){
+              this.$router.push({name: 'home'})
+          }
+        },
         data(){
             return {
                 form: {
@@ -72,8 +71,19 @@
             login(){
                 axios.post('/api/auth/login', this.form)
                     .then(res => {
-                        localStorage.setItem('token', res.data.access_token);
+                        User.responseAfterLogin(res);
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Signed in successfully'
+                        });
                         this.$router.push({name: 'home'});
+                    })
+                    .catch(error => {
+                        this.errors = error.response.data.errors !== undefined? error.response.data.errors: {};
+                        Toast.fire({
+                            icon: 'warning',
+                            title: 'Email hoặc mật khẩu không đúng'
+                        });
                     })
             }
         }
