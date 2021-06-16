@@ -2014,6 +2014,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Register",
   created: function created() {
@@ -2032,15 +2036,17 @@ __webpack_require__.r(__webpack_exports__);
         confirm_password: null
       },
       accepted: false,
-      errorAccepted: null,
-      errors: {}
+      errors: {},
+      errorClient: {}
     };
   },
   methods: {
     register: function register() {
       var _this = this;
 
-      if (this.accepted) {
+      var isValid = this.validate();
+
+      if (isValid) {
         axios.post('/api/auth/register', this.form).then(function (res) {
           User.responseAfterLogin(res);
           Toast.fire({
@@ -2059,8 +2065,38 @@ __webpack_require__.r(__webpack_exports__);
           });
         });
       }
+    },
+    validate: function validate() {
+      var isValid = true;
+      var errors = {};
 
-      this.errorAccepted = 'Bạn chưa đồng ý điều khoản';
+      if (this.form.name == undefined) {
+        isValid = false;
+        errors.name = 'Đây là trường bắt buộc';
+      }
+
+      if (this.form.email == undefined) {
+        isValid = false;
+        errors.email = 'Đây là trường bắt buộc';
+      }
+
+      if (this.form.password == undefined) {
+        isValid = false;
+        errors.password = 'Đây là trường bắt buộc';
+      }
+
+      if (this.form.confirm_password == undefined) {
+        isValid = false;
+        errors.confirm_password = 'Đây là trường bắt buộc';
+      }
+
+      if (this.accepted == false) {
+        isValid = false;
+        errors.accepted = 'Bạn chưa đồng ý điều khoản';
+      }
+
+      this.errorClient = errors;
+      return isValid;
     }
   }
 });
@@ -42585,6 +42621,12 @@ var render = function() {
                 ? _c("p", { staticClass: "text-danger" }, [
                     _vm._v(_vm._s(_vm.errors.name[0]))
                   ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.errorClient.name
+                ? _c("p", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errorClient.name))
+                  ])
                 : _vm._e()
             ]),
             _vm._v(" "),
@@ -42614,6 +42656,12 @@ var render = function() {
               _vm.errors.email
                 ? _c("p", { staticClass: "text-danger " }, [
                     _vm._v(_vm._s(_vm.errors.email[0]))
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.errorClient.email
+                ? _c("p", { staticClass: "text-danger " }, [
+                    _vm._v(_vm._s(_vm.errorClient.email))
                   ])
                 : _vm._e()
             ]),
@@ -42649,6 +42697,12 @@ var render = function() {
                 ? _c("p", { staticClass: "text-danger " }, [
                     _vm._v(_vm._s(_vm.errors.password[0]))
                   ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.errorClient.password
+                ? _c("p", { staticClass: "text-danger " }, [
+                    _vm._v(_vm._s(_vm.errorClient.password))
+                  ])
                 : _vm._e()
             ]),
             _vm._v(" "),
@@ -42682,6 +42736,12 @@ var render = function() {
               _vm.errors.confirm_password
                 ? _c("p", { staticClass: "text-danger " }, [
                     _vm._v(_vm._s(_vm.errors.confirm_password[0]))
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.errorClient.confirm_password
+                ? _c("p", { staticClass: "text-danger " }, [
+                    _vm._v(_vm._s(_vm.errorClient.confirm_password))
                   ])
                 : _vm._e()
             ]),
@@ -42734,9 +42794,9 @@ var render = function() {
                   _vm._v(" Agree the terms and policy ")
                 ]),
                 _vm._v(" "),
-                !_vm.accepted
+                _vm.errorClient.accepted
                   ? _c("p", { staticClass: "text-danger " }, [
-                      _vm._v(_vm._s(_vm.errorAccepted))
+                      _vm._v(_vm._s(_vm.errorClient.accepted))
                     ])
                   : _vm._e()
               ])
