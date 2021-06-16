@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users|email',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
         ];
@@ -36,6 +36,8 @@ class RegisterRequest extends FormRequest
         return [
             'name.required' => 'Đây là trường bắt buộc',
             'email.required' => 'Đây là trường bắt buộc',
+            'email.unique' => 'Email đã được đăng ký',
+            'email.email' => 'Không đúng định dạng email',
             'password.required' => 'Đây là trường bắt buộc',
             'confirm_password.required' => 'Đây là trường bắt buộc',
             'confirm_password.same' => 'Mật khẩu không khớp'

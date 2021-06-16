@@ -74,7 +74,7 @@
                         User.responseAfterLogin(res);
                         Toast.fire({
                             icon: 'success',
-                            title: 'Signed in successfully'
+                            title: 'Đăng nhập thành công'
                         });
                         this.$router.push({name: 'home'});
                     })

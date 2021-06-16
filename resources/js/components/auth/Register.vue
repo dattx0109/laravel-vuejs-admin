@@ -21,6 +21,7 @@
                </div>
                 <div class="form-group">
                 <div class="checkbox i-checks"><label> <input type="checkbox" v-model="accepted" true-value=true false-value=false><i></i> Agree the terms and policy </label>
+                    <p v-if="!accepted" class="text-danger ">{{errorAccepted}}</p>
                 </div>
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">Đăng ký</button>
@@ -47,18 +48,34 @@
                     confirm_password: null
                 },
                 accepted: false,
+                errorAccepted: null,
                 errors : {}
             }
         },
         methods: {
             register(){
-                axios.post('/api/auth/register', this.form)
-                    .then(res => {
-                        console.log(res)
-                    })
-                ;
+                if (this.accepted){
+                    axios.post('/api/auth/register', this.form)
+                        .then(res => {
+                            User.responseAfterLogin(res);
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Đăng ký thành công'
+                            });
+                            this.$router.push({name: 'home'});
+                        })
+                        .catch(error => {
+                            this.errors = error.response.data.errors !== undefined? error.response.data.errors: {};
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Đăng ký thất bại'
+                            });
+                        })
+                }
+                this.errorAccepted = 'Bạn chưa đồng ý điều khoản';
             }
         }
+
     }
 </script>
 

@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\User;
+use Carbon\Carbon;
+use http\Env\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -87,10 +92,21 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        dd($request->all());
         $data = [
-            'name' => $request['name']
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
 
         ];
+        $create = User::create($data);
+        if (!$create){
+            return response()->json(['status' => false, 'message' => 'Đăng ký thất bại']);
+        }
+        $credentials = new LoginRequest();
+        $credentials['email'] = $request['email'];
+        $credentials['password'] = $request['password'];
+        return $this->login($credentials);
     }
 }

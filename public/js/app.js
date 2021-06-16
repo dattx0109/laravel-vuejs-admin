@@ -1923,7 +1923,7 @@ __webpack_require__.r(__webpack_exports__);
         User.responseAfterLogin(res);
         Toast.fire({
           icon: 'success',
-          title: 'Signed in successfully'
+          title: 'Đăng nhập thành công'
         });
 
         _this.$router.push({
@@ -2013,6 +2013,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Register",
   created: function created() {
@@ -2031,14 +2032,35 @@ __webpack_require__.r(__webpack_exports__);
         confirm_password: null
       },
       accepted: false,
+      errorAccepted: null,
       errors: {}
     };
   },
   methods: {
     register: function register() {
-      axios.post('/api/auth/register', this.form).then(function (res) {
-        console.log(res);
-      });
+      var _this = this;
+
+      if (this.accepted) {
+        axios.post('/api/auth/register', this.form).then(function (res) {
+          User.responseAfterLogin(res);
+          Toast.fire({
+            icon: 'success',
+            title: 'Đăng ký thành công'
+          });
+
+          _this.$router.push({
+            name: 'home'
+          });
+        })["catch"](function (error) {
+          _this.errors = error.response.data.errors !== undefined ? error.response.data.errors : {};
+          Toast.fire({
+            icon: 'error',
+            title: 'Đăng ký thất bại'
+          });
+        });
+      }
+
+      this.errorAccepted = 'Bạn chưa đồng ý điều khoản';
     }
   }
 });
@@ -7542,7 +7564,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nh1[data-v-6b542ec8]{\r\n    color: red;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nh1[data-v-6b542ec8]{\n    color: red;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -42710,7 +42732,13 @@ var render = function() {
                   }),
                   _c("i"),
                   _vm._v(" Agree the terms and policy ")
-                ])
+                ]),
+                _vm._v(" "),
+                !_vm.accepted
+                  ? _c("p", { staticClass: "text-danger " }, [
+                      _vm._v(_vm._s(_vm.errorAccepted))
+                    ])
+                  : _vm._e()
               ])
             ]),
             _vm._v(" "),
@@ -43156,7 +43184,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("p", [
                             _vm._v(
-                              "Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the\r\n                                                sale."
+                              "Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the\n                                                sale."
                             )
                           ]),
                           _vm._v(" "),
@@ -43244,56 +43272,56 @@ var staticRenderFns = [
             _c("li", { staticClass: "list-group-item fist-item" }, [
               _c("span", { staticClass: "pull-right" }, [
                 _vm._v(
-                  "\r\n                                    09:00 pm\r\n                                "
+                  "\n                                    09:00 pm\n                                "
                 )
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "label label-success" }, [_vm._v("1")]),
-              _vm._v(" Please contact me\r\n                ")
+              _vm._v(" Please contact me\n                ")
             ]),
             _vm._v(" "),
             _c("li", { staticClass: "list-group-item" }, [
               _c("span", { staticClass: "pull-right" }, [
                 _vm._v(
-                  "\r\n                                    10:16 am\r\n                                "
+                  "\n                                    10:16 am\n                                "
                 )
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "label label-info" }, [_vm._v("2")]),
-              _vm._v(" Sign a contract\r\n                ")
+              _vm._v(" Sign a contract\n                ")
             ]),
             _vm._v(" "),
             _c("li", { staticClass: "list-group-item" }, [
               _c("span", { staticClass: "pull-right" }, [
                 _vm._v(
-                  "\r\n                                    08:22 pm\r\n                                "
+                  "\n                                    08:22 pm\n                                "
                 )
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "label label-primary" }, [_vm._v("3")]),
-              _vm._v(" Open new shop\r\n                ")
+              _vm._v(" Open new shop\n                ")
             ]),
             _vm._v(" "),
             _c("li", { staticClass: "list-group-item" }, [
               _c("span", { staticClass: "pull-right" }, [
                 _vm._v(
-                  "\r\n                                    11:06 pm\r\n                                "
+                  "\n                                    11:06 pm\n                                "
                 )
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "label label-default" }, [_vm._v("4")]),
-              _vm._v(" Call back to Sylvia\r\n                ")
+              _vm._v(" Call back to Sylvia\n                ")
             ]),
             _vm._v(" "),
             _c("li", { staticClass: "list-group-item" }, [
               _c("span", { staticClass: "pull-right" }, [
                 _vm._v(
-                  "\r\n                                    12:00 am\r\n                                "
+                  "\n                                    12:00 am\n                                "
                 )
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "label label-primary" }, [_vm._v("5")]),
-              _vm._v(" Write a letter to Sandra\r\n                ")
+              _vm._v(" Write a letter to Sandra\n                ")
             ])
           ])
         ]),
@@ -43598,13 +43626,13 @@ var staticRenderFns = [
           _c("div", { staticClass: "statistic-box" }, [
             _c("h4", [
               _vm._v(
-                "\r\n                    Project Beta progress\r\n                "
+                "\n                    Project Beta progress\n                "
               )
             ]),
             _vm._v(" "),
             _c("p", [
               _vm._v(
-                "\r\n                    You have two project with not compleated task.\r\n                "
+                "\n                    You have two project with not compleated task.\n                "
               )
             ]),
             _vm._v(" "),
@@ -43720,9 +43748,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h4", [
-      _vm._v(
-        "NYS report new data!\r\n                                        "
-      ),
+      _vm._v("NYS report new data!\n                                        "),
       _c("br"),
       _vm._v(" "),
       _c("small", { staticClass: "m-r" }, [
@@ -44053,7 +44079,7 @@ var staticRenderFns = [
                   _vm._v(" "),
                   _c("div", { staticClass: "well" }, [
                     _vm._v(
-                      "\r\n                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.\r\n                                                    Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\r\n                                                "
+                      "\n                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.\n                                                    Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n                                                "
                     )
                   ]),
                   _vm._v(" "),
@@ -44191,7 +44217,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-xs-3 date" }, [
       _c("i", { staticClass: "fa fa-briefcase" }),
       _vm._v(
-        "\r\n                                            6:00 am\r\n                                            "
+        "\n                                            6:00 am\n                                            "
       ),
       _c("br"),
       _vm._v(" "),
@@ -44215,7 +44241,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-xs-3 date" }, [
           _c("i", { staticClass: "fa fa-file-text" }),
           _vm._v(
-            "\r\n                                            7:00 am\r\n                                            "
+            "\n                                            7:00 am\n                                            "
           ),
           _c("br"),
           _vm._v(" "),
@@ -44245,7 +44271,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-xs-3 date" }, [
           _c("i", { staticClass: "fa fa-coffee" }),
           _vm._v(
-            "\r\n                                            8:00 am\r\n                                            "
+            "\n                                            8:00 am\n                                            "
           ),
           _c("br")
         ]),
@@ -44257,7 +44283,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "\r\n                                                Go to shop and find some products.\r\n                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.\r\n                                            "
+              "\n                                                Go to shop and find some products.\n                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.\n                                            "
             )
           ])
         ])
@@ -44273,7 +44299,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-xs-3 date" }, [
           _c("i", { staticClass: "fa fa-phone" }),
           _vm._v(
-            "\r\n                                            11:00 am\r\n                                            "
+            "\n                                            11:00 am\n                                            "
           ),
           _c("br"),
           _vm._v(" "),
@@ -44287,7 +44313,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "\r\n                                                Lorem Ipsum has been the industry's standard dummy text ever since.\r\n                                            "
+              "\n                                                Lorem Ipsum has been the industry's standard dummy text ever since.\n                                            "
             )
           ])
         ])
@@ -44303,7 +44329,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-xs-3 date" }, [
           _c("i", { staticClass: "fa fa-user-md" }),
           _vm._v(
-            "\r\n                                            09:00 pm\r\n                                            "
+            "\n                                            09:00 pm\n                                            "
           ),
           _c("br"),
           _vm._v(" "),
@@ -44317,7 +44343,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "\r\n                                                Find some issue and go to doctor.\r\n                                            "
+              "\n                                                Find some issue and go to doctor.\n                                            "
             )
           ])
         ])
@@ -44333,7 +44359,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-xs-3 date" }, [
           _c("i", { staticClass: "fa fa-comments" }),
           _vm._v(
-            "\r\n                                            12:50 pm\r\n                                            "
+            "\n                                            12:50 pm\n                                            "
           ),
           _c("br"),
           _vm._v(" "),
@@ -44347,7 +44373,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "\r\n                                                Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\r\n                                            "
+              "\n                                                Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n                                            "
             )
           ])
         ])
@@ -44360,14 +44386,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "footer" }, [
       _c("div", { staticClass: "pull-right" }, [
-        _vm._v("\r\n                    10GB of "),
+        _vm._v("\n                    10GB of "),
         _c("strong", [_vm._v("250GB")]),
-        _vm._v(" Free.\r\n                ")
+        _vm._v(" Free.\n                ")
       ]),
       _vm._v(" "),
       _c("div", [
         _c("strong", [_vm._v("Copyright")]),
-        _vm._v(" Example Company © 2014-2017\r\n                ")
+        _vm._v(" Example Company © 2014-2017\n                ")
       ])
     ])
   }
