@@ -2035,7 +2035,7 @@ __webpack_require__.r(__webpack_exports__);
         password: null,
         confirm_password: null
       },
-      accepted: false,
+      accepted: 'no',
       errors: {},
       errorClient: {}
     };
@@ -2090,7 +2090,7 @@ __webpack_require__.r(__webpack_exports__);
         errors.confirm_password = 'Đây là trường bắt buộc';
       }
 
-      if (this.accepted == false) {
+      if (this.accepted == 'no') {
         isValid = false;
         errors.accepted = 'Bạn chưa đồng ý điều khoản';
       }
@@ -42760,19 +42760,19 @@ var render = function() {
                     ],
                     attrs: {
                       type: "checkbox",
-                      "true-value": "true",
-                      "false-value": "false"
+                      "true-value": "yes",
+                      "false-value": "no"
                     },
                     domProps: {
                       checked: Array.isArray(_vm.accepted)
                         ? _vm._i(_vm.accepted, null) > -1
-                        : _vm._q(_vm.accepted, "true")
+                        : _vm._q(_vm.accepted, "yes")
                     },
                     on: {
                       change: function($event) {
                         var $$a = _vm.accepted,
                           $$el = $event.target,
-                          $$c = $$el.checked ? "true" : "false"
+                          $$c = $$el.checked ? "yes" : "no"
                         if (Array.isArray($$a)) {
                           var $$v = null,
                             $$i = _vm._i($$a, $$v)

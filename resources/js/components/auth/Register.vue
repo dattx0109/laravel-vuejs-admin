@@ -24,7 +24,7 @@
                    <p v-if="errorClient.confirm_password" class="text-danger ">{{errorClient.confirm_password}}</p>
                </div>
                 <div class="form-group">
-                <div class="checkbox i-checks"><label> <input type="checkbox" v-model="accepted" true-value=true false-value=false><i></i> Agree the terms and policy </label>
+                <div class="checkbox i-checks"><label> <input type="checkbox" v-model="accepted" true-value='yes' false-value='no'><i></i> Agree the terms and policy </label>
                     <p v-if="errorClient.accepted" class="text-danger ">{{errorClient.accepted}}</p>
                 </div>
                 </div>
@@ -51,7 +51,7 @@
                     password: null,
                     confirm_password: null
                 },
-                accepted: false,
+                accepted: 'no',
                 errors : {},
                 errorClient: {}
             }
@@ -97,7 +97,7 @@
                     isValid = false;
                     errors.confirm_password = 'Đây là trường bắt buộc';
                 }
-                if (this.accepted == false){
+                if (this.accepted == 'no'){
                     isValid = false;
                     errors.accepted = 'Bạn chưa đồng ý điều khoản';
                 }
