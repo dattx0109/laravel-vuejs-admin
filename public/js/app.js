@@ -2025,6 +2025,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Register",
   created: function created() {
@@ -2101,8 +2102,10 @@ __webpack_require__.r(__webpack_exports__);
       this.errorSamePassword = null;
       this.errorClient.password = null;
 
-      if (this.form.password !== this.form.confirm_password && this.form.password && this.form.confirm_password) {
-        this.errorSamePassword = 'Mật khẩu không khớp';
+      if (this.form.password === this.form.confirm_password && this.form.password && this.form.confirm_password) {
+        this.errorSamePassword = true;
+      } else if (this.form.password !== this.form.confirm_password && this.form.password && this.form.confirm_password) {
+        this.errorSamePassword = false;
       }
     },
     validate: function validate() {
@@ -42787,6 +42790,20 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _vm.errorSamePassword === false
+                ? _c("i", {
+                    staticClass: "fa fa-times text-center",
+                    staticStyle: { color: "red", "font-size": "14px" }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.errorSamePassword === true
+                ? _c("i", {
+                    staticClass: "fa fa-check text-center",
+                    staticStyle: { color: "green", "font-size": "14px" }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
               _vm.errors.confirm_password
                 ? _c("p", { staticClass: "text-danger " }, [
                     _vm._v(_vm._s(_vm.errors.confirm_password[0]))
@@ -42796,12 +42813,6 @@ var render = function() {
               _vm.errorClient.confirm_password
                 ? _c("p", { staticClass: "text-danger " }, [
                     _vm._v(_vm._s(_vm.errorClient.confirm_password))
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.errorSamePassword
-                ? _c("p", { staticClass: "text-danger " }, [
-                    _vm._v(_vm._s(_vm.errorSamePassword))
                   ])
                 : _vm._e()
             ]),

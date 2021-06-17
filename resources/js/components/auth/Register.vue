@@ -20,10 +20,11 @@
                     <p v-if="errorClient.password" class="text-danger ">{{errorClient.password}}</p>
                 </div>
                <div class="form-group">
-                <input type="password" @keyup="validatePassword()" class="form-control" v-model="form.confirm_password" name="confirm_password" placeholder="Nhập lại mật khẩu" >
+                   <input type="password" @keyup="validatePassword()" class="form-control" v-model="form.confirm_password" name="confirm_password" placeholder="Nhập lại mật khẩu" >
+                   <i v-if="errorSamePassword === false" style="color: red; font-size: 14px" class="fa fa-times text-center"></i>
+                   <i v-if="errorSamePassword === true" style="color: green; font-size: 14px" class="fa fa-check text-center"></i>
                    <p v-if="errors.confirm_password" class="text-danger ">{{errors.confirm_password[0]}}</p>
                    <p v-if="errorClient.confirm_password" class="text-danger ">{{errorClient.confirm_password}}</p>
-                   <p v-if="errorSamePassword" class="text-danger ">{{errorSamePassword}}</p>
                </div>
                 <div class="form-group">
                 <div class="checkbox i-checks"><label> <input type="checkbox" v-model="accepted" true-value='yes' false-value='no'><i></i> Agree the terms and policy </label>
@@ -103,8 +104,10 @@
             validatePassword(){
                 this.errorSamePassword = null;
                 this.errorClient.password = null;
-                if (this.form.password !== this.form.confirm_password && this.form.password && this.form.confirm_password){
-                    this.errorSamePassword = 'Mật khẩu không khớp';
+                if (this.form.password === this.form.confirm_password && this.form.password && this.form.confirm_password){
+                    this.errorSamePassword = true;
+                }else if (this.form.password !== this.form.confirm_password && this.form.password && this.form.confirm_password){
+                    this.errorSamePassword = false;
                 }
             }
             ,
