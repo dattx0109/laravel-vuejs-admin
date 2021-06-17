@@ -35,7 +35,7 @@
 <body>
 <div id="app">
 <div id="wrapper">
-    <nav class="navbar-default navbar-static-side" role="navigation">
+    <nav id="side-menu" v-show="$route.path === '/login' || $route.path === '/register' ? false : true" style="display: none" class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
@@ -132,7 +132,7 @@
         </div>
     </nav>
     <div id="page-wrapper" class="gray-bg dashbard-1">
-        <div class="row border-bottom">
+        <div id="border-bottom"  v-show="$route.path === '/login' || $route.path === '/register'? false : true" style="display: none" class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
@@ -199,7 +199,7 @@
                 </ul>
             </nav>
         </div>
-        <div class="row  border-bottom dashboard-header">
+        <div id="dashboard-header" v-show="$route.path === '/login' || $route.path === '/register' ? false : true" style="display: none" class="row  border-bottom dashboard-header">
         </div>
         <router-view></router-view>
 
@@ -237,6 +237,17 @@
 <script src="{{asset('frontend/js/plugins/auto-format-currency/simple.money.format.js')}}"></script>
 <script src="{{asset('frontend/js/plugins/datapicker/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
+<script type="text/javascript">
+    let token = localStorage.getItem('token');
+    if (token){
+        $(function () {
+            $('#side-menu').css('display', '');
+            $('#border-bottom').css('display', '');
+            $('#dashboard-header').css('display', '');
+        })
+
+    }
+</script>
 <!-- Data picker -->
 </body>
 </html>
