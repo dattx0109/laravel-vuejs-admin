@@ -1962,6 +1962,10 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    Toast.fire({
+      icon: 'success',
+      title: 'Đăng xuất thành công'
+    });
     this.$router.push({
       name: 'login'
     });
@@ -2018,6 +2022,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Register",
   created: function created() {
@@ -2037,7 +2044,9 @@ __webpack_require__.r(__webpack_exports__);
       },
       accepted: 'no',
       errors: {},
-      errorClient: {}
+      errorClient: {},
+      errorEmail: null,
+      errorSamePassword: null
     };
   },
   methods: {
@@ -2064,6 +2073,36 @@ __webpack_require__.r(__webpack_exports__);
             title: 'Đăng ký thất bại'
           });
         });
+      }
+    },
+    validateEmail: function validateEmail() {
+      var _this2 = this;
+
+      this.errorEmail = null;
+      this.errorClient.email = null;
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var result = re.test(String(this.form.email).toLowerCase());
+
+      if (!result) {
+        this.errorEmail = 'Địa chỉ email không hợp lệ';
+      }
+
+      axios.post('/api/check-exist-email', {
+        email: this.form.email
+      }).then(function (res) {
+        if (res.data.isExist) {
+          _this2.errorEmail = 'Địa chỉ email đã được sử dụng';
+        } else {
+          return;
+        }
+      });
+    },
+    validatePassword: function validatePassword() {
+      this.errorSamePassword = null;
+      this.errorClient.password = null;
+
+      if (this.form.password !== this.form.confirm_password && this.form.password && this.form.confirm_password) {
+        this.errorSamePassword = 'Mật khẩu không khớp';
       }
     },
     validate: function validate() {
@@ -42644,6 +42683,9 @@ var render = function() {
                 attrs: { type: "email", name: "email", placeholder: "Email" },
                 domProps: { value: _vm.form.email },
                 on: {
+                  keyup: function($event) {
+                    return _vm.validateEmail()
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -42662,6 +42704,12 @@ var render = function() {
               _vm.errorClient.email
                 ? _c("p", { staticClass: "text-danger " }, [
                     _vm._v(_vm._s(_vm.errorClient.email))
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.errorEmail
+                ? _c("p", { staticClass: "text-danger " }, [
+                    _vm._v(_vm._s(_vm.errorEmail))
                   ])
                 : _vm._e()
             ]),
@@ -42684,6 +42732,9 @@ var render = function() {
                 },
                 domProps: { value: _vm.form.password },
                 on: {
+                  keyup: function($event) {
+                    return _vm.validatePassword()
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -42724,6 +42775,9 @@ var render = function() {
                 },
                 domProps: { value: _vm.form.confirm_password },
                 on: {
+                  keyup: function($event) {
+                    return _vm.validatePassword()
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -42742,6 +42796,12 @@ var render = function() {
               _vm.errorClient.confirm_password
                 ? _c("p", { staticClass: "text-danger " }, [
                     _vm._v(_vm._s(_vm.errorClient.confirm_password))
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.errorSamePassword
+                ? _c("p", { staticClass: "text-danger " }, [
+                    _vm._v(_vm._s(_vm.errorSamePassword))
                   ])
                 : _vm._e()
             ]),
@@ -42801,6 +42861,20 @@ var render = function() {
                   : _vm._e()
               ])
             ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-white",
+                attrs: { type: "button" }
+              },
+              [
+                _c("router-link", { attrs: { to: "/login" } }, [
+                  _vm._v("Đăng nhập")
+                ])
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "button",

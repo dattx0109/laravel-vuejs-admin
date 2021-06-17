@@ -9,25 +9,28 @@
                     <p v-if="errorClient.name" class="text-danger">{{errorClient.name}}</p>
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" v-model="form.email" name="email" placeholder="Email" >
+                    <input type="email" @keyup="validateEmail()" class="form-control" v-model="form.email" name="email" placeholder="Email" >
                     <p v-if="errors.email" class="text-danger ">{{errors.email[0]}}</p>
                     <p v-if="errorClient.email" class="text-danger ">{{errorClient.email}}</p>
+                    <p v-if="errorEmail" class="text-danger ">{{errorEmail}}</p>
                 </div>
                 <div class="form-group">
-               <input type="password" class="form-control" v-model="form.password" name="password" placeholder="Mật khẩu" >
+               <input type="password" @keyup="validatePassword()" class="form-control" v-model="form.password" name="password" placeholder="Mật khẩu" >
                     <p v-if="errors.password" class="text-danger ">{{errors.password[0]}}</p>
                     <p v-if="errorClient.password" class="text-danger ">{{errorClient.password}}</p>
                 </div>
                <div class="form-group">
-                <input type="password" class="form-control" v-model="form.confirm_password" name="confirm_password" placeholder="Nhập lại mật khẩu" >
+                <input type="password" @keyup="validatePassword()" class="form-control" v-model="form.confirm_password" name="confirm_password" placeholder="Nhập lại mật khẩu" >
                    <p v-if="errors.confirm_password" class="text-danger ">{{errors.confirm_password[0]}}</p>
                    <p v-if="errorClient.confirm_password" class="text-danger ">{{errorClient.confirm_password}}</p>
+                   <p v-if="errorSamePassword" class="text-danger ">{{errorSamePassword}}</p>
                </div>
                 <div class="form-group">
                 <div class="checkbox i-checks"><label> <input type="checkbox" v-model="accepted" true-value='yes' false-value='no'><i></i> Agree the terms and policy </label>
                     <p v-if="errorClient.accepted" class="text-danger ">{{errorClient.accepted}}</p>
                 </div>
                 </div>
+                <button class="btn btn-sm btn-white" type="button"><router-link to="/login">Đăng nhập</router-link></button>
                 <button type="submit" class="btn btn-primary block full-width m-b">Đăng ký</button>
             </form>
         </div>
@@ -53,7 +56,9 @@
                 },
                 accepted: 'no',
                 errors : {},
-                errorClient: {}
+                errorClient: {},
+                errorEmail: null,
+                errorSamePassword: null
             }
         },
         methods: {
@@ -78,6 +83,31 @@
                         })
                 }
             },
+            validateEmail(){
+                this.errorEmail = null;
+                this.errorClient.email = null;
+                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                let result = re.test(String(this.form.email).toLowerCase());
+                if (!result){
+                    this.errorEmail = 'Địa chỉ email không hợp lệ';
+                }
+                axios.post('/api/check-exist-email', {email:this.form.email})
+                    .then(res => {
+                        if (res.data.isExist){
+                            this.errorEmail = 'Địa chỉ email đã được sử dụng';
+                        }else{
+                            return;
+                        }
+                    });
+            },
+            validatePassword(){
+                this.errorSamePassword = null;
+                this.errorClient.password = null;
+                if (this.form.password !== this.form.confirm_password && this.form.password && this.form.confirm_password){
+                    this.errorSamePassword = 'Mật khẩu không khớp';
+                }
+            }
+            ,
             validate(){
                 let isValid = true;
                 let errors = {};

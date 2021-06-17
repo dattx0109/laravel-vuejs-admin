@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,3 +34,5 @@ Route::group([
 
 //Route::group(['middleware' => 'JWT'], function (){
 //});
+
+Route::post('/check-exist-email', [UserController::class, 'checkExistEmail']);

@@ -8,6 +8,10 @@
         created() {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
+            Toast.fire({
+                icon: 'success',
+                title: 'Đăng xuất thành công'
+            });
             this.$router.push({name: 'login'});
         }
     }
