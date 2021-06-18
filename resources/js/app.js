@@ -14,6 +14,10 @@ window.Vue = require('vue').default;
 import User from "./Helpers/User";
 window.User = User;
 
+//Import Http
+import {Request} from "./Request";
+window.Request = Request;
+
 // Sweet Alert Start
 import Swal from 'sweetalert2'
 window.Swal = Swal;

@@ -32,7 +32,8 @@ Route::group([
 });
 
 
-//Route::group(['middleware' => 'JWT'], function (){
-//});
+Route::group(['middleware' => 'JWT', 'prefix' => 'user'], function (){
+    Route::get('/', [UserController::class, 'index']);
+});
 
 Route::post('/check-exist-email', [UserController::class, 'checkExistEmail']);

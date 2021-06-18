@@ -2810,22 +2810,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "index"
+  name: "index",
+  data: function data() {
+    return {
+      users: [],
+      loading: false
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    Request.get('/api/user/').then(function (res) {
+      _this.users = res.data.data;
+      _this.loading = true;
+    });
+  }
 });
 
 /***/ }),
@@ -3025,6 +3025,28 @@ var User = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "./resources/js/Request.js":
+/*!*********************************!*\
+  !*** ./resources/js/Request.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Request": () => (/* binding */ Request)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var Request = axios__WEBPACK_IMPORTED_MODULE_0___default().create();
+Request.defaults.headers.common = {
+  'Authorization': 'bearer ' + localStorage.getItem('token')
+};
+
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -3037,8 +3059,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
 /* harmony import */ var _Helpers_User__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Helpers/User */ "./resources/js/Helpers/User.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _Request__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Request */ "./resources/js/Request.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -3049,19 +3072,22 @@ vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js").default; // Import User Class
 
 
-window.User = _Helpers_User__WEBPACK_IMPORTED_MODULE_3__.default; // Sweet Alert Start
+window.User = _Helpers_User__WEBPACK_IMPORTED_MODULE_3__.default; //Import Http
 
 
-window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_4___default());
-var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().mixin({
+window.Request = _Request__WEBPACK_IMPORTED_MODULE_4__.Request; // Sweet Alert Start
+
+
+window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_5___default());
+var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
   timer: 3000,
   timerProgressBar: true,
   didOpen: function didOpen(toast) {
-    toast.addEventListener('mouseenter', (sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().stopTimer));
-    toast.addEventListener('mouseleave', (sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().resumeTimer));
+    toast.addEventListener('mouseenter', (sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().stopTimer));
+    toast.addEventListener('mouseleave', (sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().resumeTimer));
   }
 });
 window.Toast = Toast; // Sweet Alert End
@@ -3109,8 +3135,7 @@ try {
 
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; // window.axios.defaults.headers.common = { 'Authorization': 'Bearer '+localStorage.getItem('token') };
-
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -7642,7 +7667,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nh1[data-v-6b542ec8]{\n    color: red;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nh1[data-v-6b542ec8]{\r\n    color: red;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -43329,7 +43354,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("p", [
                             _vm._v(
-                              "Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the\n                                                sale."
+                              "Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the\r\n                                                sale."
                             )
                           ]),
                           _vm._v(" "),
@@ -43417,56 +43442,56 @@ var staticRenderFns = [
             _c("li", { staticClass: "list-group-item fist-item" }, [
               _c("span", { staticClass: "pull-right" }, [
                 _vm._v(
-                  "\n                                    09:00 pm\n                                "
+                  "\r\n                                    09:00 pm\r\n                                "
                 )
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "label label-success" }, [_vm._v("1")]),
-              _vm._v(" Please contact me\n                ")
+              _vm._v(" Please contact me\r\n                ")
             ]),
             _vm._v(" "),
             _c("li", { staticClass: "list-group-item" }, [
               _c("span", { staticClass: "pull-right" }, [
                 _vm._v(
-                  "\n                                    10:16 am\n                                "
+                  "\r\n                                    10:16 am\r\n                                "
                 )
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "label label-info" }, [_vm._v("2")]),
-              _vm._v(" Sign a contract\n                ")
+              _vm._v(" Sign a contract\r\n                ")
             ]),
             _vm._v(" "),
             _c("li", { staticClass: "list-group-item" }, [
               _c("span", { staticClass: "pull-right" }, [
                 _vm._v(
-                  "\n                                    08:22 pm\n                                "
+                  "\r\n                                    08:22 pm\r\n                                "
                 )
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "label label-primary" }, [_vm._v("3")]),
-              _vm._v(" Open new shop\n                ")
+              _vm._v(" Open new shop\r\n                ")
             ]),
             _vm._v(" "),
             _c("li", { staticClass: "list-group-item" }, [
               _c("span", { staticClass: "pull-right" }, [
                 _vm._v(
-                  "\n                                    11:06 pm\n                                "
+                  "\r\n                                    11:06 pm\r\n                                "
                 )
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "label label-default" }, [_vm._v("4")]),
-              _vm._v(" Call back to Sylvia\n                ")
+              _vm._v(" Call back to Sylvia\r\n                ")
             ]),
             _vm._v(" "),
             _c("li", { staticClass: "list-group-item" }, [
               _c("span", { staticClass: "pull-right" }, [
                 _vm._v(
-                  "\n                                    12:00 am\n                                "
+                  "\r\n                                    12:00 am\r\n                                "
                 )
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "label label-primary" }, [_vm._v("5")]),
-              _vm._v(" Write a letter to Sandra\n                ")
+              _vm._v(" Write a letter to Sandra\r\n                ")
             ])
           ])
         ]),
@@ -43771,13 +43796,13 @@ var staticRenderFns = [
           _c("div", { staticClass: "statistic-box" }, [
             _c("h4", [
               _vm._v(
-                "\n                    Project Beta progress\n                "
+                "\r\n                    Project Beta progress\r\n                "
               )
             ]),
             _vm._v(" "),
             _c("p", [
               _vm._v(
-                "\n                    You have two project with not compleated task.\n                "
+                "\r\n                    You have two project with not compleated task.\r\n                "
               )
             ]),
             _vm._v(" "),
@@ -43893,7 +43918,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h4", [
-      _vm._v("NYS report new data!\n                                        "),
+      _vm._v(
+        "NYS report new data!\r\n                                        "
+      ),
       _c("br"),
       _vm._v(" "),
       _c("small", { staticClass: "m-r" }, [
@@ -44224,7 +44251,7 @@ var staticRenderFns = [
                   _vm._v(" "),
                   _c("div", { staticClass: "well" }, [
                     _vm._v(
-                      "\n                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.\n                                                    Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n                                                "
+                      "\r\n                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.\r\n                                                    Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\r\n                                                "
                     )
                   ]),
                   _vm._v(" "),
@@ -44362,7 +44389,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-xs-3 date" }, [
       _c("i", { staticClass: "fa fa-briefcase" }),
       _vm._v(
-        "\n                                            6:00 am\n                                            "
+        "\r\n                                            6:00 am\r\n                                            "
       ),
       _c("br"),
       _vm._v(" "),
@@ -44386,7 +44413,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-xs-3 date" }, [
           _c("i", { staticClass: "fa fa-file-text" }),
           _vm._v(
-            "\n                                            7:00 am\n                                            "
+            "\r\n                                            7:00 am\r\n                                            "
           ),
           _c("br"),
           _vm._v(" "),
@@ -44416,7 +44443,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-xs-3 date" }, [
           _c("i", { staticClass: "fa fa-coffee" }),
           _vm._v(
-            "\n                                            8:00 am\n                                            "
+            "\r\n                                            8:00 am\r\n                                            "
           ),
           _c("br")
         ]),
@@ -44428,7 +44455,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "\n                                                Go to shop and find some products.\n                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.\n                                            "
+              "\r\n                                                Go to shop and find some products.\r\n                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.\r\n                                            "
             )
           ])
         ])
@@ -44444,7 +44471,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-xs-3 date" }, [
           _c("i", { staticClass: "fa fa-phone" }),
           _vm._v(
-            "\n                                            11:00 am\n                                            "
+            "\r\n                                            11:00 am\r\n                                            "
           ),
           _c("br"),
           _vm._v(" "),
@@ -44458,7 +44485,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "\n                                                Lorem Ipsum has been the industry's standard dummy text ever since.\n                                            "
+              "\r\n                                                Lorem Ipsum has been the industry's standard dummy text ever since.\r\n                                            "
             )
           ])
         ])
@@ -44474,7 +44501,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-xs-3 date" }, [
           _c("i", { staticClass: "fa fa-user-md" }),
           _vm._v(
-            "\n                                            09:00 pm\n                                            "
+            "\r\n                                            09:00 pm\r\n                                            "
           ),
           _c("br"),
           _vm._v(" "),
@@ -44488,7 +44515,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "\n                                                Find some issue and go to doctor.\n                                            "
+              "\r\n                                                Find some issue and go to doctor.\r\n                                            "
             )
           ])
         ])
@@ -44504,7 +44531,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-xs-3 date" }, [
           _c("i", { staticClass: "fa fa-comments" }),
           _vm._v(
-            "\n                                            12:50 pm\n                                            "
+            "\r\n                                            12:50 pm\r\n                                            "
           ),
           _c("br"),
           _vm._v(" "),
@@ -44518,7 +44545,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "\n                                                Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n                                            "
+              "\r\n                                                Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\r\n                                            "
             )
           ])
         ])
@@ -44531,14 +44558,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "footer" }, [
       _c("div", { staticClass: "pull-right" }, [
-        _vm._v("\n                    10GB of "),
+        _vm._v("\r\n                    10GB of "),
         _c("strong", [_vm._v("250GB")]),
-        _vm._v(" Free.\n                ")
+        _vm._v(" Free.\r\n                ")
       ]),
       _vm._v(" "),
       _c("div", [
         _c("strong", [_vm._v("Copyright")]),
-        _vm._v(" Example Company © 2014-2017\n                ")
+        _vm._v(" Example Company © 2014-2017\r\n                ")
       ])
     ])
   }
@@ -44735,101 +44762,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("div", { staticClass: "ibox float-e-margins" }, [
-          _c("div", { staticClass: "ibox-title margin-ibox-title" }, [
-            _c("div", { staticClass: "headerbox-add-box" }, [
-              _c("h3", [_vm._v("User")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "ibox-tools" }, [
-                _c("a", { attrs: { href: "" } }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary ibox-tool-add-new",
-                      attrs: { type: "button" }
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-plus" }),
-                      _vm._v("Thêm mới\n                            ")
-                    ]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "headerbox-filter-box" }, [
-              _c("div", { staticClass: "headerbox-filter-item" }, [
-                _c("form", { attrs: { method: "post", action: "/user" } }, [
-                  _c(
-                    "select",
-                    {
-                      staticClass: "chosen-select",
-                      attrs: {
-                        name: "role_id",
-                        "data-placeholder": "Chọn chức vụ ...",
-                        tabindex: "2"
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "" } }, [
-                        _vm._v("Chọn chức vụ ")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", [_vm._v("111")])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("button", { attrs: { type: "submit" } }, [_vm._v("Lọc")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "headerbox-items-count" }, [
-                _vm._v("Hiện có: user")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "ibox-content no-padding" }, [
-            _c("div", { staticClass: "table-responsive" }, [
-              _c(
-                "table",
-                {
-                  staticClass:
-                    "table table-striped checkbox-table boxshadow-table"
-                },
-                [
-                  _c("thead", [
-                    _c("tr", [
-                      _c("th", [
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-lg-12" }, [
+      _c("div", { staticClass: "ibox float-e-margins" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "ibox-content no-padding" }, [
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              {
+                staticClass:
+                  "table table-striped checkbox-table boxshadow-table"
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.users, function(user) {
+                    return _c("tr", [
+                      _c("td", [
                         _vm._v(
-                          "\n                                STT\n                            "
+                          "\n                                    STT\n                                "
                         )
                       ]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Name")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Email")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Role")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Phone")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Status")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tbody", [
-                    _c("tr", [
-                      _c("td"),
                       _vm._v(" "),
                       _c("td", [
                         _c(
@@ -44840,75 +44797,127 @@ var staticRenderFns = [
                           },
                           [
                             _vm._v(
-                              "\n                                    2222\n                                "
+                              "\n                                        " +
+                                _vm._s(user.name) +
+                                "\n                                    "
                             )
                           ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "table-row-action" }, [
-                          _c("span", { staticClass: "edit" }, [
-                            _c("a", { attrs: { href: "" } }, [_vm._v("Sửa")])
-                          ]),
-                          _vm._v(
-                            "\n                                    |\n                                    "
-                          ),
-                          _c("span", { staticClass: "delete" }, [
-                            _c("a", { attrs: { href: "" } }, [_vm._v("Xóa")])
-                          ])
-                        ])
+                        )
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v("111")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("111")]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("111")]),
-                      _vm._v(" "),
                       _c("td", [
-                        _c("span", { staticClass: "label label-danger" }, [
-                          _vm._v("đã xóa")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "label label-primary" }, [
-                          _vm._v("hoạt động")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("td", [
-                        _vm._v("-\n                                "),
-                        _c("input", {
-                          staticClass: "checkbox-check-all",
-                          attrs: { type: "checkbox", value: "" }
-                        })
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(user.email) +
+                            "\n                                "
+                        )
                       ]),
                       _vm._v(" "),
-                      _c("th", [_vm._v("Name")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Email")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Role")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Phone")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Status")])
+                      _vm._m(2, true)
                     ])
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "alert alert-danger", attrs: { role: "alert" } },
-                [
-                  _vm._v(
-                    "\n                        Không tìm thấy user\n                    "
-                  )
-                ]
-              )
-            ])
+                  }),
+                  0
+                )
+              ]
+            )
           ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "ibox-title margin-ibox-title" }, [
+      _c("div", { staticClass: "headerbox-add-box" }, [
+        _c("h3", [_vm._v("User")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "ibox-tools" }, [
+          _c("a", { attrs: { href: "" } }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary ibox-tool-add-new",
+                attrs: { type: "button" }
+              },
+              [
+                _c("i", { staticClass: "fa fa-plus" }),
+                _vm._v("Thêm mới\n                                ")
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "headerbox-filter-box" }, [
+        _c("div", { staticClass: "headerbox-filter-item" }, [
+          _c("form", { attrs: { method: "post", action: "/user" } }, [
+            _c(
+              "select",
+              {
+                staticClass: "chosen-select",
+                attrs: {
+                  name: "role_id",
+                  "data-placeholder": "Chọn chức vụ ...",
+                  tabindex: "2"
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("Chọn chức vụ ")
+                ]),
+                _vm._v(" "),
+                _c("option", [_vm._v("111")])
+              ]
+            ),
+            _vm._v(" "),
+            _c("button", { attrs: { type: "submit" } }, [_vm._v("Lọc")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "headerbox-items-count" }, [
+          _vm._v("Hiện có: user")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [
+          _vm._v(
+            "\n                                    STT\n                                "
+          )
+        ]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tên")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Thao tác")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("div", [
+        _c("span", { staticClass: "edit" }, [
+          _c("a", { attrs: { href: "" } }, [_vm._v("Sửa")])
+        ]),
+        _vm._v(
+          "\n                                        |\n                                        "
+        ),
+        _c("span", { staticClass: "delete" }, [
+          _c("a", { attrs: { href: "" } }, [_vm._v("Xóa")])
         ])
       ])
     ])

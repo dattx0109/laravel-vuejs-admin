@@ -35,22 +35,26 @@
                                 <th>
                                     STT
                                 </th>
-                                <th>Name</th>
+                                <th>Tên</th>
                                 <th>Email</th>
-                                <th>Role</th>
-                                <th>Phone</th>
-                                <th>Status</th>
+                                <th>Thao tác</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr v-for="user in users">
                                 <td>
+                                    STT
                                 </td>
                                 <td>
                                     <a href="" class="table-title-link">
-                                        2222
+                                        {{ user.name }}
                                     </a>
-                                    <div class="table-row-action">
+                                </td>
+                                <td>
+                                    {{ user.email }}
+                                </td>
+                                <td>
+                                    <div>
                                             <span class="edit">
                                                 <a href="">Sửa</a>
                                             </span>
@@ -60,30 +64,12 @@
                                             </span>
                                     </div>
                                 </td>
-                                <td>111</td>
-                                <td>111</td>
-                                <td>111</td>
-
-                                <td>
-                                    <span class="label label-danger">đã xóa</span>
-                                    <span class="label label-primary">hoạt động</span>
-                                </td>
                             </tr>
-                            <tr>
-                                <td>-
-                                    <input class="checkbox-check-all" type="checkbox" value="">
-                                    </td>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Phone</th>
-                                <th>Status</th>
-                                </tr>
                             </tbody>
                         </table>
-                        <div class="alert alert-danger" role="alert">
-                            Không tìm thấy user
-                        </div>
+<!--                        <div class="alert alert-danger" role="alert">-->
+<!--                            Không tìm thấy user-->
+<!--                        </div>-->
                     </div>
 
                 </div>
@@ -95,7 +81,22 @@
 
 <script>
     export default {
-        name: "index"
+        name: "index",
+        data(){
+            return {
+                users: [],
+                loading: false
+            }
+        },
+        created() {
+            Request.get('/api/user/')
+                .then(res => {
+                    this.users = res.data.data;
+                    this.loading = true;
+                });
+        },
+
+
     }
 </script>
 
