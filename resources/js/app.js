@@ -14,6 +14,10 @@ window.Vue = require('vue').default;
 import User from "./Helpers/User";
 window.User = User;
 
+//Import Notification
+import Notification from "./Helpers/Notification";
+window.Notification = Notification;
+
 //Import Http
 import {Request} from "./Request";
 window.Request = Request;

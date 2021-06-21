@@ -22,6 +22,7 @@ try {
  */
 
 window.axios = require('axios');
+window.Noty = require('noty');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
