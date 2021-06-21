@@ -56,20 +56,20 @@
                                 <td>
                                     <div>
                                             <span class="edit">
-                                                <a href="">Sửa</a>
+                                                <a @click="">Sửa</a>
                                             </span>
                                         |
                                         <span class="delete">
-                                                <a href="">Xóa</a>
+                                                    <a @click.prevent="deleteItem(user.id)">Xóa</a>
                                             </span>
                                     </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-<!--                        <div class="alert alert-danger" role="alert">-->
-<!--                            Không tìm thấy user-->
-<!--                        </div>-->
+                        <div v-if="users.length == 0" class="alert alert-danger" role="alert">
+                            Không tìm thấy user
+                        </div>
                     </div>
 
                 </div>
@@ -85,16 +85,32 @@
         data(){
             return {
                 users: [],
-                loading: false
             }
         },
         created() {
             Request.get('/api/user/')
                 .then(res => {
                     this.users = res.data.data;
-                    this.loading = true;
                 });
         },
+        methods: {
+            deleteItem(itemId){
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                })
+                    .then(result => {
+                        if (result.isConfirmed){
+                            Request.delete()
+                        }
+                    })
+            }
+        }
 
 
     }
