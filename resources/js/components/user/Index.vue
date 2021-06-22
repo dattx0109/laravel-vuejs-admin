@@ -56,7 +56,7 @@
                                 <td>
                                     <div>
                                             <span class="edit">
-                                                <a @click="">Sửa</a>
+                                                <router-link :to="{name: 'edit-user', params: {id: user.id}}"><a>Sửa</a></router-link>
                                             </span>
                                         |
                                         <span class="delete">
@@ -106,7 +106,19 @@
                 })
                     .then(result => {
                         if (result.isConfirmed){
-                            Request.delete()
+                            Request.delete('/api/user/delete/' + itemId)
+                                .then(res => {
+                                    if (res.data.status){
+                                        this.users = this.users.filter(user => {
+                                            return user.id != itemId;
+                                        });
+                                        Swal.fire(
+                                            'Deleted!',
+                                            'Your file has been deleted.',
+                                            'success'
+                                        )
+                                    }
+                                })
                         }
                     })
             }

@@ -3,72 +3,63 @@
         <div class="single-info-page dashboard-page">
             <h3 class="dashboard-page-title">Chi tiết tài khoản</h3>
             <div class="dashboard-page-container">
-                <form action="{{route('update_data_user',['id'=>1])}}" method="post" class="form-horizontal">
-                    @csrf
+                <form method="post" class="form-horizontal">
                     <table class="dashboard-frm-table form-table">
                         <tr>
                             <th scope="row">
-                                <label for="name">Tên người dùng</label>
+                                <label>Tên người dùng</label>
                             </th>
                             <td>
-                                <input value="{{$user['name'] }}"  name="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Nguyen Van A">
-                                <span class=" alert-form help-block m-b-none alert alert-danger alert-name"></span>
+                                <input value="" v-model="this.form.name"  name="name" type="text" class="form-control">
+<!--                                <span class=" alert-form help-block m-b-none alert alert-danger alert-name"></span>-->
                             </td>
                         </tr>
 
                         <tr>
                             <th scope="row">
-                                <label for="email">Email</label>
+                                <label>Email</label>
                             </th>
                             <td>
-                                <input value="{{$user['email'] }}" name="email" type="text" class="form-control @error('email') is-invalid @enderror" placeholder="vana@gmail.com">
-                                <span class="help-block m-b-none alert alert-danger alert-form alert-email"></span>
+                                <input value="" v-model="this.form.email" name="email" type="text" class="form-control">
+<!--                                <span class="help-block m-b-none alert alert-danger alert-form alert-email"></span>-->
                             </td>
                         </tr>
 
                         <tr>
                             <th scope="row">
-                                <label for="phone">Số điện thoại</label>
+                                <label>Số điện thoại</label>
                             </th>
                             <td>
-                                <input value="{{$user['phone'] }}" name="phone" type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="0966677247">
-                                <span class="alert-form help-block m-b-none alert alert-danger alert-phone"></span>
+                                <input value="" v-model="this.form.phone "name="phone" type="text" class="form-control">
+<!--                                <span class="alert-form help-block m-b-none alert alert-danger alert-phone"></span>-->
                             </td>
                         </tr>
 
-                        <tr>
-                            <th scope="row">
-                                <label>Trạng thái</label>
-                            </th>
-                            <td>
-                                @if($user['deleted_by']!= null)
-                                <span class="label label-danger">Đã xóa</span>
-                                @else
-                                <span class="label label-primary">đang hoạt động</span>
-                                @endif
-                            </td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <th scope="row">-->
+<!--                                <label>Trạng thái</label>-->
+<!--                            </th>-->
+<!--                            <td>-->
+<!--                                <span class="label label-danger">Đã xóa</span>-->
+<!--                                <span class="label label-primary">đang hoạt động</span>-->
+<!--                            </td>-->
+<!--                        </tr>-->
 
-                        <tr>
-                            <th scope="row">
-                                <label for="">Vai trò</label>
-                            </th>
-                            <td>
-                                <select name="role" data-placeholder="Chọn vai ..." class="chosen-select" multiple style="width:350px;" tabindex="4">
-                                    <option value="">Select</option>
-                                    @foreach($roles as $item)
-                                    <option @if(array_key_exists($item->id,$user['role_name'])) selected @endif value="{{$item->id}}">{{$item->name}}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <th scope="row">-->
+<!--                                <label>Vai trò</label>-->
+<!--                            </th>-->
+<!--                            <td>-->
+<!--                                <select name="role" data-placeholder="Chọn vai ..." class="chosen-select" multiple style="width:350px;" tabindex="4">-->
+<!--                                    <option value="">Select</option>-->
+<!--                                </select>-->
+<!--                            </td>-->
+<!--                        </tr>-->
                     </table>
                 </form>
                 <div class="dashboard-btn-group">
                     <button class="btn btn-primary btn-update" type="button">Lưu lại  </button>
-                    @if($user['deleted_by']== null)
                     <button class="btn btn-danger btn-delete" type="button" data-toggle="modal" data-target="#modal_delete_user"> Xóa tài khoản</button>
-                    @endif
                     <button class="btn btn-warning btn-reset-password" type="button" data-toggle="modal" data-target="#modal_reset_user"> Đặt lại mật khẩu </button>
                 </div>
             </div>
@@ -124,7 +115,26 @@
 
 <script>
     export default {
-        name: "edit"
+        name: "edit",
+        data(){
+          return {
+              form: {
+                  name: '',
+                  email: '',
+                  phone: ''
+              }
+          }
+        },
+        created() {
+            if (!User.loggedIn()){
+                this.$router.push({name: 'login'})
+            }
+            let id = this.$route.params.id;
+            Request.get('/api/user/'+id)
+                .then(res => {
+                    this.form = res.data;
+                })
+        }
     }
 </script>
 

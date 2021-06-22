@@ -28,4 +28,20 @@ class UserController extends Controller
         }
         return response()->json(['status' => true, 'data' => $data]);
     }
+
+    public function delete($userId)
+    {
+        $user = User::findOrFail($userId);
+        $delete = $user->delete();
+        if ($delete){
+            return response()->json(['status' => true]);
+        }
+        return response()->json(['status' => false]);
+    }
+
+    public function getInfoUser($id)
+    {
+        $user = User::findOrFail($id);
+        return response()->json($user);
+    }
 }

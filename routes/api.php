@@ -34,6 +34,9 @@ Route::group([
 
 Route::group(['middleware' => 'JWT', 'prefix' => 'user'], function (){
     Route::get('/', [UserController::class, 'index']);
+    Route::get('/{id}', [UserController::class, 'getInfoUser']);
+    Route::delete('/delete/{id}', [UserController::class, 'delete']);
+
 });
 
 Route::post('/check-exist-email', [UserController::class, 'checkExistEmail']);
