@@ -17,11 +17,7 @@
                     <div class="headerbox-filter-box">
                         <div class="headerbox-filter-item">
                             <form method="post" action="/user">
-                                <select name="role_id" data-placeholder="Chọn chức vụ ..." class="chosen-select"  tabindex="2">
-                                    <option value="">Chọn chức vụ </option>
-                                    <option>111</option>
-                                </select>
-                                <button type="submit">Lọc</button>
+                                <input @keyup="searchUser()" v-model="keyword" type="text" class="form-control" placeholder="Tìm user">
                             </form>
                         </div>
                         <div class="headerbox-items-count">Hiện có: user</div>
@@ -67,9 +63,9 @@
                             </tr>
                             </tbody>
                         </table>
-                        <div v-if="users.length == 0" class="alert alert-danger" role="alert">
-                            Không tìm thấy user
-                        </div>
+<!--                        <div v-if="users.length == 0" class="alert alert-danger" role="alert">-->
+<!--                            Không tìm thấy user-->
+<!--                        </div>-->
                     </div>
 
                 </div>
@@ -85,6 +81,7 @@
         data(){
             return {
                 users: [],
+                keyword: null
             }
         },
         created() {
@@ -119,6 +116,16 @@
                                         )
                                     }
                                 })
+                        }
+                    })
+            },
+            searchUser(){
+                Request.get('/api/user/', {params: {
+                    keyword: this.keyword
+                    }})
+                    .then(res => {
+                        if (res.data.status){
+                            this.users = res.data.data;
                         }
                     })
             }

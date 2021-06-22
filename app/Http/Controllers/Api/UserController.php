@@ -20,9 +20,16 @@ class UserController extends Controller
         return response()->json(['isExist' => false]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = User::query()->get();
+        $data = User::query();
+        $keyword = $request['keyword'];
+        if (!empty($keyword)){
+            $data->where('name', 'like', '%'.$keyword.'%')
+            ->orWhere('email', 'like', '%'.$keyword.'%')
+            ;
+        }
+        $data = $data->get();
         if (empty($data)){
             return response()->json(['status' => true, 'data' => []]);
         }
